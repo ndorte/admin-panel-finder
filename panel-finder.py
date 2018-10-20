@@ -43,9 +43,9 @@ def check_panel(url):
         if len(check_input) >= 1:
             print("[" + str(status_code) + "]" + url + " Found a Login Form!")
         elif len(check_input) >= 1:
-            print("[" + str(status_code) + "]" + url + " Found a form! Please check it manual.")
+            print("[" + str(status_code) + "]" + url + " Found a form! Please check it manually.")
         else:
-            print("[" + str(status_code) + "]" + url + " Please check it manual.")
+            print("[" + str(status_code) + "]" + url + " Please check it manually.")
     else:
         printline(url, times)
     time.sleep(int(tsleep))
