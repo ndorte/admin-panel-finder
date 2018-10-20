@@ -30,8 +30,8 @@ targetList = []
 savelist = []
 
 
-def printline(url, time):
-    print(url, "Respond time: ", time, sep=' ', end='\r', flush=True)
+def printline(url):
+    print(url, sep=' ', end='\r', flush=True)
 
 
 def check_panel(url):
@@ -41,17 +41,22 @@ def check_panel(url):
     if get.status_code == 200:
         soup = BeautifulSoup(get.text, "html.parser")
         check_input = soup.find_all("input")
+        valueuser = soup.find('input', {'name': 'username'})
+        valueuser1 = soup.find('input', {'name': 'user'})
+        valuepass = soup.find('input', {'name': 'password'})
+        valuepass1 = soup.find('input', {'name': 'pass'})
         if len(check_input) >= 1:
-            print("[" + str(status_code) + "]" + url + " Found a Login Form!")
-            savelist.append(url+"\n")
-        elif len(check_input) >= 1:
-            print("[" + str(status_code) + "]" + url + " Found a form! Please check it manually.")
-            savelist.append(url+"\n")
+            if valueuser or valuepass or valueuser1 or valuepass1 is not None:
+                print("[" + str(status_code) + "]" + url + " Found a Login Form!")
+                savelist.append(url + "\n")
+            else:
+                print("[" + str(status_code) + "]" + url + " Found a form! Please check it manually.")
+                savelist.append(url + "\n")
         else:
             print("[" + str(status_code) + "]" + url + " Please check it manually.")
             savelist.append(url+"\n")
     else:
-        printline(url, times)
+        printline(url)
     time.sleep(int(tsleep))
     lock.release()
 
