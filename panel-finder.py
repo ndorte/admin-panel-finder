@@ -43,13 +43,13 @@ def check_panel(url):
         check_input = soup.find_all("input")
         if len(check_input) >= 1:
             print("[" + str(status_code) + "]" + url + " Found a Login Form!")
-            savelist.append(url)
+            savelist.append(url+"\n")
         elif len(check_input) >= 1:
             print("[" + str(status_code) + "]" + url + " Found a form! Please check it manually.")
-            savelist.append(url)
+            savelist.append(url+"\n")
         else:
             print("[" + str(status_code) + "]" + url + " Please check it manually.")
-            savelist.append(url)
+            savelist.append(url+"\n")
     else:
         printline(url, times)
     time.sleep(int(tsleep))
@@ -75,5 +75,6 @@ multi_thread(target)
 with open("found.txt", "w") as save:
     save.writelines(savelist)
     save.close()
+    print("\nList saved to found.txt")
 
 print("Done !")
