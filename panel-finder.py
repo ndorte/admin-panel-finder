@@ -1,5 +1,8 @@
 import threading, time, requests, argparse, random
 from bs4 import BeautifulSoup
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 print('''
    _      _       _        ___               _   ___ _         _         
