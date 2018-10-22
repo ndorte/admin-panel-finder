@@ -1,6 +1,6 @@
 **Admin Panel Finder**
 
-Admin Panel Finder scans the target web site's administration panel by brute force. Http 200 saves all the returned URLs in code. Privileged http 200 tries to detect login forms on URLs that return code and warns the user. Wordlist size and scan speed can be adjusted. Scan speed is increased by threading.
+Admin Panel Finder scans the target web site's administration panel by brute force. HRegister sites that provide http 200 response code. Privileged http 200 tries to detect login forms on URLs that return code and warns the user. Wordlist size and scan speed can be adjusted. Scan speed is increased by threading.
 
 *This program was made for pentests. The user is responsible for all illegal use. The program author is not responsible for illegal use.*
 
