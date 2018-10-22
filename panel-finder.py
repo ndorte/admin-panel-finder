@@ -1,5 +1,17 @@
-import threading, time, requests, argparse
+import threading, time, requests, argparse, random
 from bs4 import BeautifulSoup
+
+print('''
+   _      _       _        ___               _   ___ _         _         
+  /_\  __| |_ __ (_)_ _   | _ \__ _ _ _  ___| | | __(_)_ _  __| |___ _ _ 
+ / _ \/ _` | '  \| | ' \  |  _/ _` | ' \/ -_) | | _|| | ' \/ _` / -_) '_|
+/_/ \_\__,_|_|_|_|_|_||_| |_| \__,_|_||_\___|_| |_| |_|_||_\__,_\___|_|  
+
+by Uğur Kubilay Çam
+https://github.com/ndorte/admin-panel-finder/
+Python 4 Hackers > https://www.python4hackers.com
+
+''')
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-u", "--url", help="target url e.g. https://www.example.com", required=True)
@@ -35,9 +47,15 @@ def printline(url):
 
 
 def check_panel(url):
-    get = requests.get(url)
+    with open("useragents.txt", "r") as agents:
+        agent = random.choice(agents.readlines())
+        a = agent.strip()
+        header = {
+            "User-Agent": str(a)
+        }
+        agents.close()
+    get = requests.get(url, headers=header)
     status_code = get.status_code
-    times = get.elapsed.total_seconds()
     if get.status_code == 200:
         soup = BeautifulSoup(get.text, "html.parser")
         check_input = soup.find_all("input")
@@ -47,18 +65,19 @@ def check_panel(url):
         valuepass1 = soup.find('input', {'name': 'pass'})
         if len(check_input) >= 1:
             if valueuser or valuepass or valueuser1 or valuepass1 is not None:
-                print("[" + str(status_code) + "]" + url + " Found a Login Form!")
+                print("[{}]{} Found a Login Form!".format(str(status_code), url))
                 savelist.append(url + "\n")
             else:
-                print("[" + str(status_code) + "]" + url + " Found a form! Please check it manually.")
+                print("[{}]{} Found a form! Please check it manually.".format(str(status_code), url))
                 savelist.append(url + "\n")
         else:
-            print("[" + str(status_code) + "]" + url + " Please check it manually.")
+            print("[{}]{} Please check it manually.".format(str(status_code), url))
             savelist.append(url+"\n")
     else:
         printline(url)
     time.sleep(int(tsleep))
     lock.release()
+
 
 
 def multi_thread(urls):
@@ -75,11 +94,15 @@ def multi_thread(urls):
         thread.join()
 
 
-multi_thread(target)
+try:
+    multi_thread(target)
+    with open("found.txt", "w") as save:
+        save.writelines(savelist)
+        save.close()
+        print("\nList saved to found.txt")
 
-with open("found.txt", "w") as save:
-    save.writelines(savelist)
-    save.close()
-    print("\nList saved to found.txt")
+    print("Done !")
+except:
+    print("Error!")
 
-print("Done !")
+
