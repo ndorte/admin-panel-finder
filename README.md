@@ -19,7 +19,7 @@ e.g. `sudo python3 panelfinder.py -u https://www.example.com -w wordlist-big.txt
  
  - Change Scan Speed: sudo python3 panelfinder.py -u [target_web_site] -w [word_list_size] -s [slow_or_normal_or_aggressive]
  
- **Slow:** 1 requests in 1 second, sleep2  seconds | 
+ **Slow:** 1 requests in 1 second, sleep 2 seconds | 
  **Normal:** 5 requests in 1 second, sleep 1 seconds | 
  **Aggressive:** No limit
 
