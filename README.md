@@ -1,6 +1,7 @@
 **Admin Panel Finder**
 
-Admin Panel Finder scans the target web site's administration panel by brute force. Save sites that provide http 200 response code. Privileged http 200 calls the input form in the links and warns the user when found. Modifies the User Agent in each connected request. Wordlist size and scan speed can be adjusted. Scan speed is increased by threading.
+Admin panel finder is a tool that tries to find the management panel of the target website by the brute-force method.
+For URLs tested, the HTTP status code 200 saves, and at the same time, it looks for "login form" in the source code on the pages.
 
 *This program was made for pentests. The user is responsible for all illegal use. The program author is not responsible for illegal use.*
 
